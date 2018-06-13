@@ -7,7 +7,7 @@ export class NewsApiService {
   api_key: string = environment.news_api.api_key;
 
   constructor(
-    public http: HttpClient
+    public http: HttpClient,
   ) { }
 
   getNewsByCountryAndCategory(country, category) {
