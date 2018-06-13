@@ -1,0 +1,62 @@
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">Портал новостей</h1>
+    <p class="lead">Самые свежие новости в одном приложении</p>
+  </div>
+</div>
+<div class="container">
+  <div class="filters mt-5">
+    <div class="row">
+      <div class="form-group col-4">
+        <label for="currentCategory">Выберите категорию</label>
+        <select name="currentCategory"
+                class="form-control"
+                [(ngModel)]="currentCategory"
+                (change)="onChange()"
+                id="currentCategory"
+        >
+          <option *ngFor="let category of categoryList" [ngValue]="category">{{ category }}</option>
+        </select>
+      </div>
+      <div class="form-group col-4">
+        <label for="currentCountry">Выберите страну</label>
+        <select name="currentCountry"
+                class="form-control"
+                [(ngModel)]="currentCountry"
+                (change)="onChange()"
+                id="currentCountry"
+        >
+          <option *ngFor="let country of countryList" [ngValue]="country">{{ country }}</option>
+        </select>
+      </div>
+      <div class="form-group col-4">
+        <label *ngIf="!checkoutSource" for="currentSource">Выберите ресурс</label>
+        <label *ngIf="checkoutSource">Ресурсы: По данной стране нет ресурсов</label>
+        <select name="currentSource"
+                class="form-control"
+                [(ngModel)]="currentSource"
+                (change)="changeSource()"
+                id="currentSource"
+        >
+          <option *ngFor="let source of sourceList" [ngValue]="source.id">{{ source.name }}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="card text-center mb-3" *ngFor="let news of newsList">
+    <div class="card-header">
+      {{ news.source.name }}
+    </div>
+    <div class="news-preview">
+      <img [src]="news.urlToImage" alt="">
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">{{ news.title }}</h5>
+      <p class="card-text">{{ news.description }}</p>
+      <a href="{{ news.url }}" class="btn btn-primary">Read more</a>
+    </div>
+    <div class="card-footer">
+      {{ news.publishedAt | customDate: "ru-RU"}}
+    </div>
+  </div>
+</div>
